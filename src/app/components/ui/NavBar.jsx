@@ -1,42 +1,55 @@
-import React, { useEffect } from "react";
-import StyledNavLink from "../StyledNavLink";
-import NavBarDropdown from "./NavBar/NavBarDropdown";
-import NavBarLinkList from "./NavBar/NavBarLinkList";
-import NavBarLogo from "./NavBar/NavBarLogo";
-import NavBarWrapper from "./NavBar/NavBarWrapper";
-
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getIsLoggedIn } from "../../store/users";
+import NavProfile from "./navProfile";
 const NavBar = () => {
-    const isLoggedIn = false;
-
-    useEffect(() => {
-        fetch("https://fakestoreapi.com/products")
-            .then((res) => res.json())
-            .then((json) => console.log(json));
-    }, []);
-
+    const isLoggedIn = useSelector(getIsLoggedIn());
     return (
-        <NavBarWrapper>
-            <NavBarLogo
-                link="/"
-                src="/assets/img/rr-logo.svg"
-                label="React Router v5"
-            />
-            <NavBarLinkList>
-                {isLoggedIn ? (
-                    <>
-                        <StyledNavLink to="/">Something</StyledNavLink>
-                        <StyledNavLink to="/posts" end>
-                            Posts
-                        </StyledNavLink>
-                        <NavBarDropdown />
-                    </>
-                ) : (
-                    <StyledNavLink to="/auth/login" styleType="button">
-                        SignUp
-                    </StyledNavLink>
-                )}
-            </NavBarLinkList>
-        </NavBarWrapper>
+        <nav className="navbar bg-light mb-3">
+            <div className="container-fluid">
+                <ul className="nav">
+                    <li className="nav-item">
+                        <Link className="nav-link " aria-current="page" to="/">
+                            Main
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link "
+                            aria-current="page"
+                            to="/products"
+                        >
+                            Products
+                        </Link>
+                    </li>
+                    {isLoggedIn && (
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link "
+                                aria-current="page"
+                                to="/users"
+                            >
+                                Users
+                            </Link>
+                        </li>
+                    )}
+                </ul>
+                <div className="d-flex">
+                    {isLoggedIn ? (
+                        <NavProfile />
+                    ) : (
+                        <Link
+                            className="nav-link "
+                            aria-current="page"
+                            to="/login"
+                        >
+                            Login
+                        </Link>
+                    )}
+                </div>
+            </div>
+        </nav>
     );
 };
 
