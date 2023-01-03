@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import professions from "../mockData/professions.json";
-import qualities from "../mockData/qualities.json";
-import users from "../mockData/users.json";
-import httpService from "../services/http.service";
+import professions from "../../mockData/professions.json";
+import qualities from "../../mockData/qualities.json";
+import users from "../../mockData/users.json";
+import products from "../../mockData/products.json";
+import httpService from "../../services/http.service";
 
 const useMockData = () => {
     const statusConsts = {
@@ -16,7 +17,8 @@ const useMockData = () => {
     const [status, setStatus] = useState(statusConsts.idle);
     const [progress, setProgress] = useState(0);
     const [count, setCount] = useState(0);
-    const summeryCount = professions.length + qualities.length + users.length;
+    const summeryCount =
+        professions.length + qualities.length + users.length + products.length;
     const incrementCount = () => {
         setCount((prevState) => prevState + 1);
     };
@@ -41,6 +43,8 @@ const useMockData = () => {
     async function initialize() {
         try {
             for (const prof of professions) {
+                console.log(prof._id);
+
                 await httpService.put("profession/" + prof._id, prof);
                 incrementCount();
             }
@@ -50,6 +54,10 @@ const useMockData = () => {
             }
             for (const qual of qualities) {
                 await httpService.put("quality/" + qual._id, qual);
+                incrementCount();
+            }
+            for (const product of products) {
+                await httpService.put("product/" + product._id, product);
                 incrementCount();
             }
         } catch (error) {

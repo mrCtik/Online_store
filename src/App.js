@@ -1,25 +1,31 @@
-// import "./App.css";
 import React from "react";
-import { useRoutes } from "react-router-dom";
-import NavBar from "./app/components/ui/NavBar";
-import routes from "./routes";
-// import { Routes } from "react-router-dom";
-function App() {
-    const elements = useRoutes(routes());
+import { Route, Routes } from "react-router-dom";
+import Login from "./app/components/layout/login";
+import Main from "./app/components/layout/main";
+import Cart from "./app/components/ui/cart";
+// import api from "./app/api";
+import NavBar from "./app/components/ui/navBar";
+import ProductsList from "./app/components/ui/productsList";
+// import Products from "./app/components/productsList";
 
+const App = () => {
     return (
         <>
-            {/* <Routes> */}
-            <NavBar />
-            {elements}
+            <div>
+                <NavBar />
+                <Routes>
+                    <Route index element={<Main />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="products" element={<ProductsList />} />
+                    <Route path="cart" element={<Cart />} />
 
-            <h1 className="text-3xl font-bold underline text-lightblack">
-                Hello world!
-            </h1>
-
-            {/* </Routes> */}
+                    {/* <Route path="/login/:type?" component={Login} />
+                    <Route path="/" exact component={Main} />
+                    <Redirect to="/" /> */}
+                </Routes>
+            </div>
         </>
     );
-}
+};
 
 export default App;

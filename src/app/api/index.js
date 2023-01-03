@@ -1,7 +1,6 @@
-import product from "./fake.api/product.api";
+import products from "./fake.api/product.api";
 
 const api = {
-    product
+    products
 };
-
 export default api;

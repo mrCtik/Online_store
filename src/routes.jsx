@@ -5,6 +5,7 @@ import Login from "./app/components/layout/login";
 import LogOut from "./app/components/layout/logOut";
 import Users from "./app/components/layout/users";
 import AuthLayout from "./app/components/layout/AuthLayout";
+import Cart from "./app/components/cart";
 
 const routes = () => [
     {
@@ -28,6 +29,10 @@ const routes = () => [
     {
         path: "users",
         element: <Users />
+    },
+    {
+        path: "cart",
+        element: <Cart />
     }
 ];
 
