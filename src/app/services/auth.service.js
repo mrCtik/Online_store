@@ -15,6 +15,7 @@ const authService = {
             password,
             returnSecureToken: true
         });
+        console.log("register", data);
         return data;
     },
     login: async ({ email, password }) => {
@@ -23,6 +24,7 @@ const authService = {
             password,
             returnSecureToken: true
         });
+        console.log("login", data);
         return data;
     },
     refresh: async () => {
@@ -30,6 +32,7 @@ const authService = {
             grant_type: "refresh_token",
             refresh_token: localStorageService.getRefreshToken()
         });
+        console.log("refresh", data);
         return data;
     }
 };
